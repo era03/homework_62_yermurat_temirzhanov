@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from django.views.generic import TemplateView
-from accounts.forms import LoginForm
+from django.views.generic import TemplateView, CreateView
+from accounts.forms import LoginForm, UserCreationForm
+from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 
@@ -35,3 +37,22 @@ class LoginView(TemplateView):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+class RegisterView(CreateView):
+    model = User
+    template_name = 'register.html'
+    form_class = UserCreationForm
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if not next_url:
+            next_url = self.request.POST.get('next')
+        if not next_url:
+            next_url = reverse('index')
+        return next_url
