@@ -29,6 +29,7 @@ Tasks
                 {% endfor %}
             </td>
             <td>{{task.created_at}}</td>
+            {% if user.is_authenticated %}
             <td>
                 <a href="{% url 'detail_task' task.pk %}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -59,6 +60,7 @@ Tasks
                 </a>
             </td>
         </tr>
+        {%endif%}
         {% empty %}
         <h5 class="text-center">No items found.</h5>
         {% endfor %}
