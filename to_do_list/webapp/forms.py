@@ -35,3 +35,10 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Projects
         fields = ('project', 'created_at', 'deadline')
+
+
+class AddUserToProjectForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        fields = ('users', )
+    

@@ -10,6 +10,14 @@
         <h5 class="card-title">Name: {{project.project}}</h5>
         <p class="card-text">Created: {{project.created_at}}</p>
         <p class="card-text">Deadline: {% if project.deadline %}{{project.deadline}}{% else %} - {% endif %}</p>
+        <p>Users: 
+            {% for user in project.users.all %}
+                <span class="info-item">
+                    {{user.username}}{% if not forloop.last %}, {% endif %}
+                </span>
+            {% endfor %}
+        </p>
+        <a href="{% url 'add_user_to_project' project.pk%}">Add or delete User</a>
     </div>
 </div>
 </div>

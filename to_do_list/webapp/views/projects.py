@@ -1,7 +1,7 @@
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from webapp.models import Projects, Tasks
 from django.urls import reverse, reverse_lazy
-from webapp.forms import ProjectForm, TaskForm
+from webapp.forms import ProjectForm, TaskForm, AddUserToProjectForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -47,3 +47,13 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'article_confirm_delete.html'
     model = Projects
     success_url = reverse_lazy('index')
+
+
+class AddUserToProjectView(UpdateView):
+    model = Projects
+    form_class = AddUserToProjectForm
+    template_name = 'add_user_to_project.html'
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('projects')
