@@ -29,9 +29,9 @@ class TypeAdmin(admin.ModelAdmin):
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project', 'created_at', 'deadline')
-    list_filter = ('id', 'project', 'created_at', 'deadline')
-    search_fields = ('project', 'created_at', 'deadline')
-    fields = ('project', 'created_at', 'deadline')
+    list_filter = ('id', 'project', 'created_at', 'deadline', 'users')
+    search_fields = ('project', 'created_at', 'deadline', 'users')
+    fields = ('project', 'created_at', 'deadline', 'users')
     readonly_fields = ('id',)
 
 admin.site.register(Tasks, TaskAdmin)
